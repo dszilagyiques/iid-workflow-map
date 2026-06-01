@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IID Workflow</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">IID Construction</p>
+      <h1>Workflow</h1>
+    </div>
+    <nav class="toplinks" aria-label="Workflow links">
+      <a href="./IID_WORKFLOW_A_TO_Z.md">Markdown</a>
+      <a href="#open-items">Open Items</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="overview-grid" aria-label="Workflow overview">
+      <div class="overview-copy">
+        <p class="section-label">1000-Foot View</p>
+        <h2>Job packet to field packet, pricing, purchase order routing, and post-PO handoff.</h2>
+        <p>
+          IID employees upload the job packet. Automation extracts construction-map work, creates SharePoint records and folders, enriches the job with dig-ticket coordinates, creates a prefielding PDF, supports tasking/pricing, and routes purchase-order PDFs into the correct job folder.
+        </p>
+      </div>
+      <div class="metric-grid" aria-label="Current snapshot evidence">
+        <div class="metric">
+          <span class="metric-value">19</span>
+          <span class="metric-label">Jobs</span>
+        </div>
+        <div class="metric">
+          <span class="metric-value">283</span>
+          <span class="metric-label">Structures</span>
+        </div>
+        <div class="metric">
+          <span class="metric-value">208</span>
+          <span class="metric-label">Locations</span>
+        </div>
+        <div class="metric">
+          <span class="metric-value">19</span>
+          <span class="metric-label">Prefielding PDFs</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="system-map" aria-label="Workflow system map">
+      <div class="system-column">
+        <p class="lane-label">Intake</p>
+        <button class="map-node is-active" type="button" data-stage="1">Job Packet</button>
+        <button class="map-node" type="button" data-stage="8">PO Email</button>
+      </div>
+      <div class="flow-arrow" aria-hidden="true"></div>
+      <div class="system-column">
+        <p class="lane-label">Managed Agents</p>
+        <button class="map-node" type="button" data-stage="2">Construction Map</button>
+        <button class="map-node" type="button" data-stage="4">Dig Tickets</button>
+      </div>
+      <div class="flow-arrow" aria-hidden="true"></div>
+      <div class="system-column">
+        <p class="lane-label">SharePoint System Of Record</p>
+        <button class="map-node" type="button" data-stage="3">Jobs + Structures</button>
+        <button class="map-node" type="button" data-stage="5">Locations + PDFs</button>
+      </div>
+      <div class="flow-arrow" aria-hidden="true"></div>
+      <div class="system-column">
+        <p class="lane-label">Operations</p>
+        <button class="map-node" type="button" data-stage="6">Prefielding</button>
+        <button class="map-node" type="button" data-stage="7">Tasking / Pricing</button>
+      </div>
+      <div class="flow-arrow" aria-hidden="true"></div>
+      <div class="system-column">
+        <p class="lane-label">Control Loop</p>
+        <button class="map-node" type="button" data-stage="9">Materials</button>
+        <button class="map-node" type="button" data-stage="10">Dashboard + SOPs</button>
+      </div>
+    </section>
+
+    <section class="tabs" aria-label="Workflow views">
+      <div class="tab-list" role="tablist" aria-label="Workflow view selector">
+        <button class="tab is-active" id="tab-overview" role="tab" aria-selected="true" aria-controls="panel-overview" type="button" data-tab="overview">Overview</button>
+        <button class="tab" id="tab-drilldown" role="tab" aria-selected="false" aria-controls="panel-drilldown" type="button" data-tab="drilldown">Drill-Down</button>
+        <button class="tab" id="tab-data" role="tab" aria-selected="false" aria-controls="panel-data" type="button" data-tab="data">Data Objects</button>
+        <button class="tab" id="tab-open" role="tab" aria-selected="false" aria-controls="panel-open" type="button" data-tab="open">Open Items</button>
+      </div>
+
+      <section class="tab-panel is-active" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview" data-panel="overview">
+        <div class="pipeline" aria-label="Ten-stage workflow">
+          <ol>
+            <li><span>1</span>Upload packet</li>
+            <li><span>2</span>Classify map</li>
+            <li><span>3</span>Create records</li>
+            <li><span>4</span>Find tickets</li>
+            <li><span>5</span>Build packet</li>
+            <li><span>6</span>Prefield</li>
+            <li><span>7</span>Price</li>
+            <li><span>8</span>Route POs</li>
+            <li><span>9</span>Order materials</li>
+            <li><span>10</span>Track + improve</li>
+          </ol>
+        </div>
+
+        <div class="handoff-grid">
+          <article class="handoff">
+            <h3>Power Automate</h3>
+            <p>Receives the file/email event or schedule and sends a small, deterministic HTTP handoff.</p>
+          </article>
+          <article class="handoff">
+            <h3>Managed Agent</h3>
+            <p>Classifies or extracts PDF evidence and returns raw JSON only.</p>
+          </article>
+          <article class="handoff">
+            <h3>Scripts + Relays</h3>
+            <p>Validate job numbers, folders, files, hashes, and SharePoint writes before completion.</p>
+          </article>
+          <article class="handoff">
+            <h3>SharePoint</h3>
+            <p>Stores the durable Jobs, Structures, Locations, Documents, PDFs, and workflow links.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="panel-drilldown" role="tabpanel" aria-labelledby="tab-drilldown" data-panel="drilldown">
+        <div class="drill-layout">
+          <div class="stage-list" aria-label="Workflow stages"></div>
+          <article class="stage-detail" aria-live="polite">
+            <div class="stage-status-row">
+              <span class="status-pill" data-detail-status></span>
+              <span class="stage-owner" data-detail-owner></span>
+            </div>
+            <h2 data-detail-title></h2>
+            <p data-detail-summary></p>
+            <div class="detail-columns">
+              <div>
+                <h3>Automation</h3>
+                <ul data-detail-automation></ul>
+              </div>
+              <div>
+                <h3>Outputs</h3>
+                <ul data-detail-outputs></ul>
+              </div>
+            </div>
+            <div class="guardrail">
+              <h3>Guardrail</h3>
+              <p data-detail-guardrail></p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="panel-data" role="tabpanel" aria-labelledby="tab-data" data-panel="data">
+        <div class="data-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Object</th>
+                <th>System</th>
+                <th>Purpose</th>
+                <th>Current Evidence</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Jobs</td>
+                <td>SharePoint list</td>
+                <td>Job-level entry point, assignee, prefielding PDF, tasking sheet, count snapshots.</td>
+                <td>19 rows, 19 with prefielding PDFs.</td>
+              </tr>
+              <tr>
+                <td>Structures</td>
+                <td>SharePoint list</td>
+                <td>Pole/structure rows, status, construction map links, field owner and schedule fields.</td>
+                <td>283 rows, 282 Fielding Needed, 1 Scheduling Needed.</td>
+              </tr>
+              <tr>
+                <td>Locations</td>
+                <td>SharePoint list</td>
+                <td>Dig-ticket coordinates, source PDF, ticket number, structure/job matching.</td>
+                <td>208 rows, all with coordinates in the reviewed snapshot.</td>
+              </tr>
+              <tr>
+                <td>Documents</td>
+                <td>SharePoint library</td>
+                <td>Source packages, generated PDFs, tasking sheets, purchase orders, job folders.</td>
+                <td>PO routing targets `Jobs/Distribution/Job &lt;job number&gt;/`.</td>
+              </tr>
+              <tr>
+                <td>AI Automation Run Costs</td>
+                <td>SharePoint list</td>
+                <td>Model usage, token usage, duration, and run context.</td>
+                <td>Used for managed-agent cost tracking.</td>
+              </tr>
+              <tr>
+                <td>Outlook Trigger Pointer</td>
+                <td>Power Automate + Outlook relay</td>
+                <td>Message ID, internet message ID, subject, sender, received time, attachment flag.</td>
+                <td>Supports deterministic PO attachment retrieval.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="tab-panel" id="panel-open" role="tabpanel" aria-labelledby="tab-open" data-panel="open">
+        <div class="open-grid" id="open-items">
+          <article>
+            <span class="priority priority-high">High</span>
+            <h3>Post-PO material ordering is not mapped</h3>
+            <p>Define owners, systems, status fields, documents, delivery evidence, exceptions, construction handoff, closeout, and billing records.</p>
+          </article>
+          <article>
+            <span class="priority priority-medium">Medium</span>
+            <h3>Calendar fields are not populated</h3>
+            <p>`Structures.ScheduleDate`, Package Tracker schedule fields, or a dedicated schedule list must become the authoritative schedule source.</p>
+          </article>
+          <article>
+            <span class="priority priority-medium">Medium</span>
+            <h3>Pricing source needs final authority</h3>
+            <p>SharePoint proposal forms had blank unit-cost fields in the reviewed files, so the local price-sheet template remains the current working source.</p>
+          </article>
+          <article>
+            <span class="priority priority-low">Watch</span>
+            <h3>Ambiguous PDFs must go to review</h3>
+            <p>PO routing should fail closed when job number, folder, duplicate hash, or document type evidence does not agree.</p>
+          </article>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <p>Source basis: local IID automation workspace, reviewed 2026-06-01. SharePoint remains the system of record.</p>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>
+
