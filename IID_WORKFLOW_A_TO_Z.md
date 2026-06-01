@@ -1,8 +1,8 @@
-# IID Construction Workflow A To Z
+# IID Construction Workflows A To Z
 
 Updated: 2026-06-01
 
-This document summarizes the IID construction workflow from job-packet intake through prefielding, tasking/pricing, purchase-order routing, and the unmapped post-PO work. It is written as the durable reference for the SharePoint sidebar quick link named `workflow`.
+This document summarizes the IID construction workflows from job-packet intake through prefielding, tasking/pricing, purchase-order routing, and the unmapped post-PO work. It is written as the durable reference for the SharePoint sidebar quick link named `Workflows`.
 
 Primary SharePoint site:
 
@@ -14,26 +14,13 @@ Primary SharePoint data surfaces:
 
 | Surface | Role In Workflow |
 | --- | --- |
-| `Jobs` | Job-level record, assignee, prefielding PDF link, tasking sheet link, count snapshots, and operational job entry point. |
+| `Jobs` | Job-level record, assignee, prefielding PDF link, tasking sheet link, and operational job entry point. |
 | `Structures` | Pole/structure records, job number, fielding status, source links, construction map links, schedule/assignment fields, prefield form links, and traffic-control details. |
 | `Locations` | Dig-ticket coordinates, ticket numbers, structure/job matching, source PDF links, and Google Maps coordinate links. |
 | `Documents` | Source job packets, construction maps, dig tickets, generated construction-map PDFs, prefielding PDFs, tasking sheets, purchase orders, and job folders. |
 | `AI Automation Run Costs` | Managed-agent and model-run telemetry for cost, tokens, duration, and business context. |
 
-Current time-bound inventory evidence from the reviewed workspace:
-
-| Evidence | Snapshot Value |
-| --- | ---: |
-| Jobs | 19 |
-| Jobs with prefielding PDFs | 19 |
-| Structures | 283 |
-| Locations | 208 |
-| Locations with coordinates | 208 |
-| Structures with schedule date | 0 |
-| Events rows | 0 |
-| Package Tracker items | 69 |
-
-Counts are operational evidence from the local snapshot, not a guarantee of the current live SharePoint state. Refresh SharePoint before quoting production numbers.
+This document avoids fixed SharePoint counters because live totals can change between automation runs. Refresh SharePoint before quoting production counts.
 
 ## 1000-Foot View
 
@@ -128,7 +115,7 @@ The coordinate workflow starts with a deterministic planner. It reads configured
 
 ### 5. Update Locations And Generate The Prefielding PDF
 
-**Trigger:** The job has structures and coordinate evidence, or an existing prefielding PDF needs a count-driven refresh.
+**Trigger:** The job has structures and coordinate evidence, or an existing prefielding PDF needs a metadata-driven refresh.
 
 The prefielding workflow uses `Structures`, `Locations`, and `Jobs` to generate one field packet per eligible job.
 
@@ -139,7 +126,7 @@ The prefielding workflow uses `Structures`, `Locations`, and `Jobs` to generate 
 - Generate route-optimized Google Maps links where coordinates are valid.
 - Add construction map links, construction package links, dig-ticket/source links, prefield form links, and coordinate status.
 - Upload the PDF into the existing job folder.
-- Update the `Jobs.Prefielding PDF` hyperlink and input-count snapshots.
+- Update the `Jobs.Prefielding PDF` hyperlink and refreshed job metadata.
 
 **Primary outputs:**
 
@@ -298,4 +285,3 @@ This document is based on local IID workflow artifacts in `/Users/dszilagyi/Docu
 - `iid-dashboard-calendar/data/sharepoint_inventory_summary.json`
 - `IID_Construction_Tasking_Review/notes/tasking_file_review.md`
 - `IID_Construction_Tasking_Review/bubble_vs_excel_pricing_crosswalk.md`
-

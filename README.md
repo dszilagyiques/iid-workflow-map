@@ -1,6 +1,6 @@
-# IID Workflow Map
+# IID Workflows Map
 
-Static GitHub Pages site and companion Markdown document for the IID construction automation workflow.
+Static GitHub Pages site and companion Markdown document for the IID construction automation workflows.
 
 ## Files
 
@@ -19,11 +19,4 @@ Primary SharePoint site referenced:
 https://quantaservices.sharepoint.com/sites/IIDConstruction
 ```
 
-Snapshot counts used in the page are time-bound evidence, not guaranteed current production counts:
-
-- 19 Jobs rows.
-- 283 Structures rows.
-- 208 Locations rows with coordinates.
-- 19 Jobs rows with prefielding PDFs.
-- 0 populated `Structures.ScheduleDate` rows in the reviewed dashboard/calendar snapshot.
-
+The page avoids publishing fixed SharePoint totals because live data can change between automation runs.

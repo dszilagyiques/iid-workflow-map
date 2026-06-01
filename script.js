@@ -85,7 +85,7 @@ const stages = [
     outputs: [
       "Prefielding PDF.",
       "Jobs.Prefielding PDF hyperlink.",
-      "Input-count snapshots."
+      "Refreshed job metadata."
     ],
     guardrail: "Route coordinates should be validated and obvious outliers removed before publishing field routes."
   },

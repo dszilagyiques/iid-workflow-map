@@ -126,8 +126,11 @@ main {
   align-items: stretch;
 }
 
+.overview-grid--single {
+  grid-template-columns: 1fr;
+}
+
 .overview-copy,
-.metric-grid,
 .system-map,
 .tabs {
   background: var(--surface);
@@ -150,36 +153,6 @@ main {
   max-width: 980px;
   color: var(--muted);
   font-size: 1.05rem;
-}
-
-.metric-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1px;
-  overflow: hidden;
-  background: var(--line);
-}
-
-.metric {
-  padding: 24px;
-  background: var(--surface);
-  min-height: 140px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.metric-value {
-  color: var(--green);
-  font-size: clamp(2.3rem, 4vw, 4rem);
-  font-weight: 850;
-  line-height: 0.95;
-}
-
-.metric-label {
-  margin-top: 8px;
-  color: var(--muted);
-  font-weight: 750;
 }
 
 .system-map {
@@ -564,7 +537,6 @@ footer {
     width: min(100vw - 20px, 1480px);
   }
 
-  .metric-grid,
   .detail-columns,
   .handoff-grid,
   .open-grid,
@@ -595,7 +567,4 @@ footer {
     grid-template-columns: 1fr;
   }
 
-  .metric {
-    min-height: 110px;
-  }
 }

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>IID Workflow</title>
+  <title>IID Workflows</title>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./styles.css">
 </head>
@@ -11,7 +11,7 @@
   <header class="topbar">
     <div>
       <p class="eyebrow">IID Construction</p>
-      <h1>Workflow</h1>
+      <h1>Workflows</h1>
     </div>
     <nav class="toplinks" aria-label="Workflow links">
       <a href="./IID_WORKFLOW_A_TO_Z.md">Markdown</a>
@@ -20,31 +20,13 @@
   </header>
 
   <main>
-    <section class="overview-grid" aria-label="Workflow overview">
+    <section class="overview-grid overview-grid--single" aria-label="Workflow overview">
       <div class="overview-copy">
         <p class="section-label">1000-Foot View</p>
         <h2>Job packet to field packet, pricing, purchase order routing, and post-PO handoff.</h2>
         <p>
           IID employees upload the job packet. Automation extracts construction-map work, creates SharePoint records and folders, enriches the job with dig-ticket coordinates, creates a prefielding PDF, supports tasking/pricing, and routes purchase-order PDFs into the correct job folder.
         </p>
-      </div>
-      <div class="metric-grid" aria-label="Current snapshot evidence">
-        <div class="metric">
-          <span class="metric-value">19</span>
-          <span class="metric-label">Jobs</span>
-        </div>
-        <div class="metric">
-          <span class="metric-value">283</span>
-          <span class="metric-label">Structures</span>
-        </div>
-        <div class="metric">
-          <span class="metric-value">208</span>
-          <span class="metric-label">Locations</span>
-        </div>
-        <div class="metric">
-          <span class="metric-value">19</span>
-          <span class="metric-label">Prefielding PDFs</span>
-        </div>
       </div>
     </section>
 
@@ -167,20 +149,20 @@
               <tr>
                 <td>Jobs</td>
                 <td>SharePoint list</td>
-                <td>Job-level entry point, assignee, prefielding PDF, tasking sheet, count snapshots.</td>
-                <td>19 rows, 19 with prefielding PDFs.</td>
+                <td>Job-level entry point, assignee, prefielding PDF, tasking sheet, and operational job state.</td>
+                <td>Primary field and office entry point.</td>
               </tr>
               <tr>
                 <td>Structures</td>
                 <td>SharePoint list</td>
                 <td>Pole/structure rows, status, construction map links, field owner and schedule fields.</td>
-                <td>283 rows, 282 Fielding Needed, 1 Scheduling Needed.</td>
+                <td>Structure-level system of record.</td>
               </tr>
               <tr>
                 <td>Locations</td>
                 <td>SharePoint list</td>
                 <td>Dig-ticket coordinates, source PDF, ticket number, structure/job matching.</td>
-                <td>208 rows, all with coordinates in the reviewed snapshot.</td>
+                <td>Coordinate and dig-ticket traceability.</td>
               </tr>
               <tr>
                 <td>Documents</td>
