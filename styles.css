@@ -399,6 +399,7 @@ main {
 }
 
 .detail-columns > div,
+.link-panel,
 .guardrail {
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -418,6 +419,25 @@ li {
 .guardrail {
   margin-top: 16px;
   border-left: 4px solid var(--gold);
+}
+
+.link-panel {
+  margin-top: 16px;
+}
+
+.link-panel ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 18px;
+  padding-left: 18px;
+}
+
+.link-panel li {
+  margin: 0;
+}
+
+.link-panel a {
+  font-weight: 800;
 }
 
 .guardrail p {
@@ -538,6 +558,7 @@ footer {
   }
 
   .detail-columns,
+  .link-panel ul,
   .handoff-grid,
   .open-grid,
   .drill-layout {

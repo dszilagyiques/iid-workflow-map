@@ -1,3 +1,19 @@
+const sharePointBase = "https://quantaservices.sharepoint.com/sites/IIDConstruction";
+const sharePointLinks = {
+  site: { label: "IID Construction site", url: sharePointBase },
+  documents: { label: "Documents library", url: `${sharePointBase}/Shared%20Documents/Forms/AllItems.aspx` },
+  jobsDistribution: { label: "Jobs / Distribution folder", url: `${sharePointBase}/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2FIIDConstruction%2FShared%20Documents%2FJobs%2FDistribution` },
+  sops: { label: "SOPs folder", url: `${sharePointBase}/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2FIIDConstruction%2FShared%20Documents%2FSOPs` },
+  jobs: { label: "Jobs list", url: `${sharePointBase}/Lists/Jobs/AllItems.aspx` },
+  structures: { label: "Structures list", url: `${sharePointBase}/Lists/Issue%20tracker%20list` },
+  locations: { label: "Locations list", url: `${sharePointBase}/Lists/Locations/AllItems.aspx` },
+  packageTracker: { label: "Package Tracker list", url: `${sharePointBase}/Lists/Progress%20tracker%20list` },
+  events: { label: "Events list", url: `${sharePointBase}/Events/AllItems.aspx` },
+  dashboard: { label: "Dashboard / Calendar", url: "https://dszilagyiques.github.io/iid-construction-dashboard/index.html#calendar" },
+  workflowDoc: { label: "Workflow Markdown", url: "https://github.com/dszilagyiques/iid-workflow-map/blob/main/IID_WORKFLOW_A_TO_Z.md" },
+  workflowRepo: { label: "Workflow GitHub repo", url: "https://github.com/dszilagyiques/iid-workflow-map" }
+};
+
 const stages = [
   {
     id: "1",
@@ -15,6 +31,7 @@ const stages = [
       "Candidate job metadata.",
       "Audit path for downstream artifacts."
     ],
+    links: [sharePointLinks.site, sharePointLinks.documents, sharePointLinks.jobsDistribution, sharePointLinks.workflowDoc],
     guardrail: "The source PDF remains the anchor for every downstream SharePoint record, generated PDF, and review item."
   },
   {
@@ -33,6 +50,7 @@ const stages = [
       "Generated construction-map PDF.",
       "Used-item legend."
     ],
+    links: [sharePointLinks.documents, sharePointLinks.structures, sharePointLinks.jobs, sharePointLinks.workflowDoc],
     guardrail: "The managed-agent final answer must be raw JSON only so Power Automate can parse it directly."
   },
   {
@@ -51,6 +69,7 @@ const stages = [
       "Structures rows.",
       "Job folder and construction-map links."
     ],
+    links: [sharePointLinks.jobs, sharePointLinks.structures, sharePointLinks.documents, sharePointLinks.jobsDistribution],
     guardrail: "Every SharePoint write must be verified by reading back the created or updated component."
   },
   {
@@ -69,6 +88,7 @@ const stages = [
       "Latitude/longitude extraction targets.",
       "Location rows with ticket/source links."
     ],
+    links: [sharePointLinks.documents, sharePointLinks.locations, sharePointLinks.structures, sharePointLinks.jobs],
     guardrail: "Do not invent structure IDs for work-area coordinates that are not tied to a specific pole."
   },
   {
@@ -87,6 +107,7 @@ const stages = [
       "Jobs.Prefielding PDF hyperlink.",
       "Refreshed job metadata."
     ],
+    links: [sharePointLinks.jobs, sharePointLinks.structures, sharePointLinks.locations, sharePointLinks.jobsDistribution],
     guardrail: "Route coordinates should be validated and obvious outliers removed before publishing field routes."
   },
   {
@@ -105,6 +126,7 @@ const stages = [
       "Updated fielding status.",
       "Exceptions tied to job and structure."
     ],
+    links: [sharePointLinks.jobs, sharePointLinks.structures, sharePointLinks.locations, sharePointLinks.sops],
     guardrail: "Escalations should include job number, structure ID when applicable, source file or ticket, affected SharePoint row/link, and screenshot evidence when helpful."
   },
   {
@@ -123,6 +145,7 @@ const stages = [
       "Jobs.Tasking Sheet link.",
       "Review notes for unmapped standards."
     ],
+    links: [sharePointLinks.jobs, sharePointLinks.structures, sharePointLinks.jobsDistribution, sharePointLinks.workflowDoc],
     guardrail: "Map bubbles and Excel pricing rows are related but not the same system; pricing must use approved standard mappings."
   },
   {
@@ -141,6 +164,7 @@ const stages = [
       "Hash/length verification when possible.",
       "Review queue entries for ambiguity."
     ],
+    links: [sharePointLinks.jobs, sharePointLinks.jobsDistribution, sharePointLinks.documents, sharePointLinks.workflowDoc],
     guardrail: "Fail closed. It is better to quarantine a PO than upload it to the wrong job folder."
   },
   {
@@ -159,6 +183,7 @@ const stages = [
       "Vendor confirmations.",
       "Delivery and closeout evidence."
     ],
+    links: [sharePointLinks.jobs, sharePointLinks.packageTracker, sharePointLinks.jobsDistribution, sharePointLinks.events],
     guardrail: "Do not automate this section until the owners, status fields, and exception paths are explicit."
   },
   {
@@ -177,6 +202,7 @@ const stages = [
       "Run cost records.",
       "SOP and Jira updates."
     ],
+    links: [sharePointLinks.dashboard, sharePointLinks.jobs, sharePointLinks.structures, sharePointLinks.locations, sharePointLinks.events, sharePointLinks.sops, sharePointLinks.workflowRepo],
     guardrail: "GitHub Pages and role bundles are views; SharePoint remains the system of record."
   }
 ];
@@ -188,6 +214,7 @@ const detailTitle = document.querySelector("[data-detail-title]");
 const detailSummary = document.querySelector("[data-detail-summary]");
 const detailAutomation = document.querySelector("[data-detail-automation]");
 const detailOutputs = document.querySelector("[data-detail-outputs]");
+const detailLinks = document.querySelector("[data-detail-links]");
 const detailGuardrail = document.querySelector("[data-detail-guardrail]");
 const detailStatus = document.querySelector("[data-detail-status]");
 const detailOwner = document.querySelector("[data-detail-owner]");
@@ -221,6 +248,20 @@ function renderList(root, items) {
   });
 }
 
+function renderLinks(root, links) {
+  root.innerHTML = "";
+  links.forEach((link) => {
+    const li = document.createElement("li");
+    const anchor = document.createElement("a");
+    anchor.href = link.url;
+    anchor.textContent = link.label;
+    anchor.target = "_blank";
+    anchor.rel = "noopener";
+    li.appendChild(anchor);
+    root.appendChild(li);
+  });
+}
+
 function setStage(id) {
   const stage = stages.find((item) => item.id === String(id)) || stages[0];
 
@@ -239,6 +280,7 @@ function setStage(id) {
   detailOwner.textContent = stage.owner;
   renderList(detailAutomation, stage.automation);
   renderList(detailOutputs, stage.outputs);
+  renderLinks(detailLinks, stage.links || []);
   detailGuardrail.textContent = stage.guardrail;
 }
 

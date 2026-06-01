@@ -54,6 +54,13 @@ The package can contain cost proposal forms, construction map layouts, USA/Dig A
 - Source package remains in `Documents`.
 - Candidate job number and source file metadata are available to the managed-agent workflow.
 
+**Relevant links:**
+
+- [IID Construction site][iid-site]
+- [Documents library][documents-library]
+- [Jobs / Distribution folder][jobs-distribution-folder]
+- [Workflow Markdown source][workflow-markdown-source]
+
 ### 2. Classify The PDF As A Construction Map
 
 **Trigger:** A candidate package needs construction-map extraction.
@@ -71,6 +78,13 @@ The managed construction-map agent runs the `iid-openai-extractor` skill. It cla
 
 - Structured construction-map JSON.
 - Generated construction-map PDF containing the map pages and a compact used-item legend.
+
+**Relevant links:**
+
+- [Documents library][documents-library]
+- [Structures list][structures-list]
+- [Jobs list][jobs-list]
+- [Workflow Markdown source][workflow-markdown-source]
 
 ### 3. Create Jobs, Structures, And Job Folders
 
@@ -93,6 +107,13 @@ Power Automate or the wrapper script uses the SharePoint relay to create or upda
 - Job folder under `Documents`.
 - Construction-map artifact links.
 
+**Relevant links:**
+
+- [Jobs list][jobs-list]
+- [Structures list][structures-list]
+- [Documents library][documents-library]
+- [Jobs / Distribution folder][jobs-distribution-folder]
+
 ### 4. Run Scheduled Dig-Ticket Coordinate Automation
 
 **Trigger:** Daily or scheduled automation scans for dig-ticket work.
@@ -112,6 +133,13 @@ The coordinate workflow starts with a deterministic planner. It reads configured
 - Reconciliation plan.
 - Extracted latitude/longitude rows.
 - Updated `Locations` rows with source-file traceability.
+
+**Relevant links:**
+
+- [Documents library][documents-library]
+- [Locations list][locations-list]
+- [Structures list][structures-list]
+- [Jobs list][jobs-list]
 
 ### 5. Update Locations And Generate The Prefielding PDF
 
@@ -134,6 +162,13 @@ The prefielding workflow uses `Structures`, `Locations`, and `Jobs` to generate 
 - Updated `Jobs` row.
 - Field packet link ready for assignment.
 
+**Relevant links:**
+
+- [Jobs list][jobs-list]
+- [Structures list][structures-list]
+- [Locations list][locations-list]
+- [Jobs / Distribution folder][jobs-distribution-folder]
+
 ### 6. Assign The Job And Complete Prefielding
 
 **Trigger:** The job is ready for field review.
@@ -152,6 +187,13 @@ Somebody is assigned to the job for prefielding. They open the prefielding PDF, 
 - Completed prefielding forms.
 - Updated status/assignment fields.
 - Field notes and exceptions tied back to job number and structure ID.
+
+**Relevant links:**
+
+- [Jobs list][jobs-list]
+- [Structures list][structures-list]
+- [Locations list][locations-list]
+- [SOPs folder][sops-folder]
 
 ### 7. Build Tasking And Pricing For IID Approval
 
@@ -176,6 +218,13 @@ The tasking/pricing workflow converts construction-map evidence into the IID pri
 - IID approval package.
 - Review notes for unmapped or ambiguous standards.
 
+**Relevant links:**
+
+- [Jobs list][jobs-list]
+- [Structures list][structures-list]
+- [Jobs / Distribution folder][jobs-distribution-folder]
+- [Workflow Markdown source][workflow-markdown-source]
+
 ### 8. Receive And Route IID Purchase Orders
 
 **Trigger:** IID or an internal forward sends purchase-order PDFs by email, including the Carlos Salgado seed case with subject `IID PO's`.
@@ -199,6 +248,13 @@ The recommended production pattern keeps Power Automate small. The Outlook trigg
 - PO PDFs stored under the correct `Jobs/Distribution/Job <job number>/` folder.
 - Review queue items for ambiguous, non-PO, duplicate, or unmatched attachments.
 
+**Relevant links:**
+
+- [Jobs list][jobs-list]
+- [Jobs / Distribution folder][jobs-distribution-folder]
+- [Documents library][documents-library]
+- [Workflow Markdown source][workflow-markdown-source]
+
 ### 9. Order Materials And Execute Post-PO Work
 
 **Trigger:** IID approves the tasking/pricing and releases purchase orders for materials.
@@ -220,6 +276,13 @@ This section is acknowledged but not fully mapped in the reviewed workspace. The
 - Vendor confirmation and delivery tracking.
 - Construction scheduling handoff.
 - Closeout and billing evidence.
+
+**Relevant links:**
+
+- [Jobs list][jobs-list]
+- [Package Tracker list][package-tracker-list]
+- [Jobs / Distribution folder][jobs-distribution-folder]
+- [Events list][events-list]
 
 ### 10. Maintain Dashboards, Notifications, SOPs, And Run Control
 
@@ -243,6 +306,16 @@ The dashboard and monitoring layer keeps the workflow visible. SharePoint remain
 - Run telemetry and cost records.
 - Notifications.
 - SOP and Jira updates.
+
+**Relevant links:**
+
+- [Dashboard / Calendar][dashboard-calendar]
+- [Jobs list][jobs-list]
+- [Structures list][structures-list]
+- [Locations list][locations-list]
+- [Events list][events-list]
+- [SOPs folder][sops-folder]
+- [Workflow GitHub repo][workflow-repo]
 
 ## Critical Data Contracts
 
@@ -285,3 +358,18 @@ This document is based on local IID workflow artifacts in `/Users/dszilagyi/Docu
 - `iid-dashboard-calendar/data/sharepoint_inventory_summary.json`
 - `IID_Construction_Tasking_Review/notes/tasking_file_review.md`
 - `IID_Construction_Tasking_Review/bubble_vs_excel_pricing_crosswalk.md`
+
+## Link Reference
+
+[iid-site]: https://quantaservices.sharepoint.com/sites/IIDConstruction
+[documents-library]: https://quantaservices.sharepoint.com/sites/IIDConstruction/Shared%20Documents/Forms/AllItems.aspx
+[jobs-distribution-folder]: https://quantaservices.sharepoint.com/sites/IIDConstruction/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2FIIDConstruction%2FShared%20Documents%2FJobs%2FDistribution
+[sops-folder]: https://quantaservices.sharepoint.com/sites/IIDConstruction/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2FIIDConstruction%2FShared%20Documents%2FSOPs
+[jobs-list]: https://quantaservices.sharepoint.com/sites/IIDConstruction/Lists/Jobs/AllItems.aspx
+[structures-list]: https://quantaservices.sharepoint.com/sites/IIDConstruction/Lists/Issue%20tracker%20list
+[locations-list]: https://quantaservices.sharepoint.com/sites/IIDConstruction/Lists/Locations/AllItems.aspx
+[package-tracker-list]: https://quantaservices.sharepoint.com/sites/IIDConstruction/Lists/Progress%20tracker%20list
+[events-list]: https://quantaservices.sharepoint.com/sites/IIDConstruction/Events/AllItems.aspx
+[dashboard-calendar]: https://dszilagyiques.github.io/iid-construction-dashboard/index.html#calendar
+[workflow-markdown-source]: https://github.com/dszilagyiques/iid-workflow-map/blob/main/IID_WORKFLOW_A_TO_Z.md
+[workflow-repo]: https://github.com/dszilagyiques/iid-workflow-map
